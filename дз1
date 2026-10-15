@@ -1,141 +1,167 @@
+//1
+
+
 using System;
 
+class Program
+{
+    static int Proizvedenie(int a, int b)
+    {
+        return a * b;
+    }
 
-// ==================== ЗАДАНИЕ 1 ====================
+    static void Obrabotka(int[] A)
+    {
+        int min = A[0];
+        int max = A[0];
 
-//Console.WriteLine("Как вас зовут?"); // Выводим вопрос на экран
-//string name = Console.ReadLine(); // Считываем имя, которое ввёл пользователь
+        for (int i = 1; i < A.Length; i++)
+        {
+            if (A[i] < min) min = A[i];
+            if (A[i] > max) max = A[i];
+        }
 
-//Console.WriteLine("Какой язык программирования Вы изучали ранее?"); // Спрашиваем язык программирования
-//string language = Console.ReadLine(); // Считываем название языка
+        Console.WriteLine("Длина: " + A.Length);
+        Console.WriteLine("Минимум: " + min);
+        Console.WriteLine("Максимум: " + max);
+        Console.WriteLine("Произведение: " + Proizvedenie(min, max));
+    }
 
-//Console.WriteLine($"Я {name}, я уже знаю {language}!"); // Выводим имя и язык пользователя
+    static void Main()
+    {
+        Console.Write("Введите количество чисел: ");
+        int N = int.Parse(Console.ReadLine());
+
+        int[] A = new int[N];
+
+        for (int i = 0; i < N; i++)
+        {
+            Console.Write("Введите число: ");
+            A[i] = int.Parse(Console.ReadLine());
+        }
+
+        Obrabotka(A);
+    }
+}
 
 
+//2
 
-// ==================== ЗАДАНИЕ 2 ====================
+//using System;
+//using System.Collections.Generic;
 
-//Console.WriteLine("X:"); // Просим ввести координату X
-//double x = Convert.ToDouble(Console.ReadLine()); // Считываем X и переводим текст в число
-
-//Console.WriteLine("Y:"); // Просим ввести координату Y
-//double y = Convert.ToDouble(Console.ReadLine()); // Считываем Y и переводим текст в число
-
-//if (x == 0 && y == 0) // Проверяем, не находится ли точка в начале координат
+//class Program
 //{
-//    Console.WriteLine("Угол не может быть определен"); // Если X и Y равны нулю, угол определить нельзя
-//}
-//else
-//{
-//    double radians = Math.Atan2(y, x); // Находим угол в радианах по координатам точки
+//    static double CalculateProfit(double balance)
+//    {
+//        double finalBalance = balance * Math.Pow(1.17, 3);
+//        return finalBalance - balance;
+//    }
 
-//    double degrees = radians * (180 / Math.PI); // Переводим угол из радиан в градусы
+//    static void Main()
+//    {
+//        Dictionary<string, double> accounts = new Dictionary<string, double>()
+//        {
+//            { "Маша", 10000 },
+//            { "Петя", 30000 },
+//            { "Вася", 100000 }
+//        };
 
-//    Console.WriteLine($"Угол в градусах: {degrees}"); // Выводим полученный угол
-//}
+//        Console.Write("Введите имя пользователя: ");
+//        string name = Console.ReadLine();
 
+//        Console.Write("Введите сумму пополнения: ");
+//        double amount = double.Parse(Console.ReadLine());
 
+//        if (accounts.ContainsKey(name))
+//        {
+//            accounts[name] += amount;
 
-// ==================== ЗАДАНИЕ 3 ====================
+//            Console.WriteLine(
+//                $"{name}, Ваш баланс счета изменен! Текущий баланс {accounts[name]} рублей."
+//            );
+//        }
+//        else
+//        {
+//            accounts.Add(name, amount);
 
-//Console.WriteLine("Скорость:"); // Просим ввести скорость автомобиля
-//double speed = Convert.ToDouble(Console.ReadLine()); // Считываем скорость
+//            Console.WriteLine(
+//                $"Благодарим, что вы стали клиентом нашего банка! {name}, Ваш баланс счета изменен. Текущий баланс {accounts[name]} рублей."
+//            );
+//        }
 
-//Console.WriteLine("Время:"); // Просим ввести время движения
-//double time = Convert.ToDouble(Console.ReadLine()); // Считываем время
+//        double balance = accounts[name];
+//        double profit = CalculateProfit(balance);
 
-//double distance = speed * time; // Находим пройденное расстояние: скорость × время
-
-//double mark = distance % 163; // Находим отметку на кольцевой дороге
-// % берёт остаток от деления, поэтому получаем положение автомобиля на круге
-
-//int circles = (int)(distance / 163); // Находим количество полных кругов
-// (int) убирает дробную часть, оставляя только целое количество кругов
-
-//Console.WriteLine($"Отметка: {mark}"); // Выводим отметку, на которой остановился автомобиль
-//Console.WriteLine($"Полных кругов: {circles}"); // Выводим количество полных кругов
-
-
-
-// ==================== ЗАДАНИЕ 4 ====================
-
-//Console.WriteLine("Введите первое число:"); // Просим первое число
-//int a = Convert.ToInt32(Console.ReadLine()); // Считываем первое целое число
-
-//Console.WriteLine("Введите второе число:"); // Просим второе число
-//int b = Convert.ToInt32(Console.ReadLine()); // Считываем второе целое число
-
-//if (a > b) // Проверяем, не является ли первое число больше второго
-//{
-//    int temp = a; // Временно сохраняем первое число
-//    a = b; // На место первого числа ставим второе
-//    b = temp; // На место второго ставим сохранённое первое число
-//}
-// Теперь a — меньшее число, а b — большее
-
-//Random random = new Random(); // Создаём объект для получения случайных чисел
-
-//int number = random.Next(a, b + 1); // Получаем случайное число от a до b включительно
-
-//Console.WriteLine($"Случайное число: {number}"); // Выводим случайное число
-
-
-
-// ==================== ЗАДАНИЕ 5 ====================
-
-//Console.WriteLine("Введите a:"); // Просим ввести значение a
-//double a = Convert.ToDouble(Console.ReadLine()); // Считываем a
-
-//Console.WriteLine("Введите b:"); // Просим ввести значение b
-//double b = Convert.ToDouble(Console.ReadLine()); // Считываем b
-
-//Console.WriteLine("Введите c:"); // Просим ввести значение c
-//double c = Convert.ToDouble(Console.ReadLine()); // Считываем c
-
-//Console.WriteLine("Введите d:"); // Просим ввести значение d
-//double d = Convert.ToDouble(Console.ReadLine()); // Считываем d
-
-//if (c == 0 || d == 0) // Проверяем, не будет ли деления на ноль
-//{
-//    Console.WriteLine("На ноль делить нельзя"); // Выводим сообщение об ошибке
-//}
-//else if (d < 0) // Проверяем, не является ли d отрицательным
-//{
-//    Console.WriteLine("Под корнем не может быть отрицательное число"); // Нельзя извлечь обычный квадратный корень из отрицательного числа
-//}
-//else
-//{
-//    double z = (a / c) * (b / d) - (a * b - c) / (c * d) + Math.Sqrt(d); // Подставляем значения в формулу и вычисляем Z
-
-//    Console.WriteLine($"Z = {z}"); // Выводим результат
+//        Console.WriteLine(
+//            $"Вы можете воспользоваться стандартным вкладом нашего банка! Вложив сумму остатка ({balance:F2} рублей) на 3 года под 17% годовых, Вы получите прибыль {profit:F2} рублей. Для активации вклада войдите в мобильное приложение!"
+//        );
+//    }
 //}
 
 
+//3
 
-// ==================== ЗАДАНИЕ 6 ====================
 
-//Console.WriteLine("Введите первую сторону:"); // Просим ввести первую сторону
-//double a = Convert.ToDouble(Console.ReadLine()); // Считываем первую сторону
+//using System;
 
-//Console.WriteLine("Введите вторую сторону:"); // Просим ввести вторую сторону
-//double b = Convert.ToDouble(Console.ReadLine()); // Считываем вторую сторону
-
-//Console.WriteLine("Введите третью сторону:"); // Просим ввести третью сторону
-//double c = Convert.ToDouble(Console.ReadLine()); // Считываем третью сторону
-
-//if (a <= 0 || b <= 0 || c <= 0) // Проверяем, чтобы стороны были положительными
+//class Program
 //{
-//    Console.WriteLine("Стороны должны быть больше нуля"); // Если сторона меньше или равна нулю — выводим ошибку
-//}
-//else if (a + b <= c || a + c <= b || b + c <= a) // Проверяем, существует ли треугольник с такими сторонами
-//{
-//    Console.WriteLine("Такого треугольника не существует"); // Если условие не выполняется — треугольника нет
-//}
-//else
-//{
-//    double p = (a + b + c) / 2; // Находим полупериметр треугольника
+//    static string LongestWord(string sentence)
+//    {
+//        string[] words = sentence.Split(' ');
 
-//    double s = Math.Sqrt(p * (p - a) * (p - b) * (p - c)); // Вычисляем площадь по формуле Герона
+//        string longest = "";
 
-//    Console.WriteLine($"Площадь: {s}"); // Выводим площадь треугольника
+//        foreach (string word in words)
+//        {
+//            if (word.Length > longest.Length)
+//            {
+//                longest = word;
+//            }
+//        }
+
+//        return longest;
+//    }
+
+//    static void Main()
+//    {
+//        Console.Write("Введите предложение: ");
+//        string sentence = Console.ReadLine();
+
+//        Console.WriteLine(LongestWord(sentence));
+//    }
 //}
+
+
+
+//4
+
+
+
+//class Program
+//{
+//    static bool CheckPassword(string password)
+//    {
+//        if (password.Length < 6 || password.Length > 12)
+//            return false;
+
+//        bool lower = password.Any(char.IsLower);
+//        bool upper = password.Any(char.IsUpper);
+//        bool digit = password.Any(char.IsDigit);
+//        bool special = password.Any(c => !char.IsLetterOrDigit(c));
+
+//        return lower && upper && digit && special;
+//    }
+
+//    static void Main()
+//    {
+//        Console.Write("Введите пароль: ");
+//        string password = Console.ReadLine();
+
+//        Console.WriteLine(CheckPassword(password));
+//    }
+//}
+
+
+
