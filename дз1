@@ -1,167 +1,297 @@
-//1
 
-
-using System;
-
-class Program
+class Tarakan
 {
-    static int Proizvedenie(int a, int b)
+    public string Name;
+    public string Color;
+    public int MaxSpeed;
+    public int Endurance;
+    public int Trainings = 0;
+
+    Random random = new Random();
+
+    public Tarakan(string name, string color, int speed, int endurance)
     {
-        return a * b;
+        Name = name;
+        Color = color;
+        MaxSpeed = random.Next(0, speed + 1);
+        Endurance = endurance;
     }
 
-    static void Obrabotka(int[] A)
+    public int Dvizhenie()
     {
-        int min = A[0];
-        int max = A[0];
+        int speed = MaxSpeed + Endurance / 10;
 
-        for (int i = 1; i < A.Length; i++)
-        {
-            if (A[i] < min) min = A[i];
-            if (A[i] > max) max = A[i];
-        }
+        if (speed > 100)
+            speed = 100;
 
-        Console.WriteLine("Длина: " + A.Length);
-        Console.WriteLine("Минимум: " + min);
-        Console.WriteLine("Максимум: " + max);
-        Console.WriteLine("Произведение: " + Proizvedenie(min, max));
+        return speed;
     }
 
-    static void Main()
+    public bool Trenirovka()
     {
-        Console.Write("Введите количество чисел: ");
-        int N = int.Parse(Console.ReadLine());
-
-        int[] A = new int[N];
-
-        for (int i = 0; i < N; i++)
+        if (Trainings >= 3)
         {
-            Console.Write("Введите число: ");
-            A[i] = int.Parse(Console.ReadLine());
+            Console.WriteLine("Больше тренироваться нельзя!");
+            return true;
         }
 
-        Obrabotka(A);
+        Trainings++;
+
+        if (random.Next(1, 5) == 1)
+        {
+            Console.WriteLine("Таракан погиб во время тренировки!");
+            return false;
+        }
+
+        Console.WriteLine("1. Увеличить максимальную скорость");
+        Console.WriteLine("2. Увеличить выносливость");
+
+        int choice = int.Parse(Console.ReadLine());
+
+        if (choice == 1)
+            MaxSpeed = Math.Min(100, MaxSpeed * 120 / 100);
+        else if (choice == 2)
+            Endurance = Endurance * 120 / 100;
+
+        Console.WriteLine("Тренировка завершена!");
+        return true;
     }
 }
 
+class Totalizator
+{
+    public int Schet = 1000;
+    public int Stavka;
 
-//2
+    List<Tarakan> tarakany = new List<Tarakan>();
 
-//using System;
-//using System.Collections.Generic;
+    public void Dobavit()
+    {
+        Console.Write("Введите имя таракана: ");
+        string name = Console.ReadLine();
 
-//class Program
-//{
-//    static double CalculateProfit(double balance)
-//    {
-//        double finalBalance = balance * Math.Pow(1.17, 3);
-//        return finalBalance - balance;
-//    }
+        string[] cveta =
+        {
+            "красный", "Красный",
+            "синий", "Синий",
+            "зелёный", "Зелёный",
+            "жёлтый", "Жёлтый",
+            "желтый", "Желтый",
+            "чёрный", "Чёрный",
+            "черный", "Черный",
+            "белый", "Белый",
+            "коричневый", "Коричневый",
+            "оранжевый", "Оранжевый",
+            "фиолетовый", "Фиолетовый",
+            "розовый", "Розовый",
+            "серый", "Серый",
+            "голубой", "Голубой",
+            "бирюзовый", "Бирюзовый"
+        };
 
-//    static void Main()
-//    {
-//        Dictionary<string, double> accounts = new Dictionary<string, double>()
-//        {
-//            { "Маша", 10000 },
-//            { "Петя", 30000 },
-//            { "Вася", 100000 }
-//        };
+        string color;
 
-//        Console.Write("Введите имя пользователя: ");
-//        string name = Console.ReadLine();
+        do
+        {
+            Console.Write("Введите цвет таракана: ");
+            color = Console.ReadLine().Trim();
 
-//        Console.Write("Введите сумму пополнения: ");
-//        double amount = double.Parse(Console.ReadLine());
+            if (!Array.Exists(cveta, c => c == color))
+                Console.WriteLine("Такого цвета нет в списке. Попробуйте ещё раз.");
 
-//        if (accounts.ContainsKey(name))
-//        {
-//            accounts[name] += amount;
+        } while (!Array.Exists(cveta, c => c == color));
 
-//            Console.WriteLine(
-//                $"{name}, Ваш баланс счета изменен! Текущий баланс {accounts[name]} рублей."
-//            );
-//        }
-//        else
-//        {
-//            accounts.Add(name, amount);
+        int speed;
+        do
+        {
+            Console.Write("Введите максимальную скорость (0-100): ");
+            speed = int.Parse(Console.ReadLine());
+        }
+        while (speed < 0 || speed > 100);
 
-//            Console.WriteLine(
-//                $"Благодарим, что вы стали клиентом нашего банка! {name}, Ваш баланс счета изменен. Текущий баланс {accounts[name]} рублей."
-//            );
-//        }
+        int endurance;
+        do
+        {
+            Console.Write("Введите выносливость (от 0): ");
+            endurance = int.Parse(Console.ReadLine());
+        }
+        while (endurance < 0);
 
-//        double balance = accounts[name];
-//        double profit = CalculateProfit(balance);
+        tarakany.Add(new Tarakan(name, color, speed, endurance));
 
-//        Console.WriteLine(
-//            $"Вы можете воспользоваться стандартным вкладом нашего банка! Вложив сумму остатка ({balance:F2} рублей) на 3 года под 17% годовых, Вы получите прибыль {profit:F2} рублей. Для активации вклада войдите в мобильное приложение!"
-//        );
-//    }
-//}
+        Console.WriteLine("Таракан добавлен!");
+    }
 
+    public void Udalit()
+    {
+        Pokazat();
 
-//3
+        if (tarakany.Count == 0)
+            return;
 
+        Console.Write("Введите номер таракана для удаления: ");
+        int number = int.Parse(Console.ReadLine());
 
-//using System;
+        if (number >= 1 && number <= tarakany.Count)
+        {
+            tarakany.RemoveAt(number - 1);
+            Console.WriteLine("Таракан удалён!");
+        }
+        else
+            Console.WriteLine("Неверный номер!");
+    }
 
-//class Program
-//{
-//    static string LongestWord(string sentence)
-//    {
-//        string[] words = sentence.Split(' ');
+    public void Pokazat()
+    {
+        if (tarakany.Count == 0)
+        {
+            Console.WriteLine("Тараканов пока нет.");
+            return;
+        }
 
-//        string longest = "";
+        for (int i = 0; i < tarakany.Count; i++)
+        {
+            Console.WriteLine(
+                (i + 1) + ". Имя: " + tarakany[i].Name +
+                ", цвет: " + tarakany[i].Color +
+                ", скорость: " + tarakany[i].MaxSpeed +
+                ", выносливость: " + tarakany[i].Endurance);
+        }
+    }
 
-//        foreach (string word in words)
-//        {
-//            if (word.Length > longest.Length)
-//            {
-//                longest = word;
-//            }
-//        }
+    public void Trenirovat()
+    {
+        Pokazat();
 
-//        return longest;
-//    }
+        if (tarakany.Count == 0)
+            return;
 
-//    static void Main()
-//    {
-//        Console.Write("Введите предложение: ");
-//        string sentence = Console.ReadLine();
+        Console.Write("Введите номер таракана: ");
+        int number = int.Parse(Console.ReadLine());
 
-//        Console.WriteLine(LongestWord(sentence));
-//    }
-//}
+        if (number < 1 || number > tarakany.Count)
+        {
+            Console.WriteLine("Неверный номер!");
+            return;
+        }
 
+        if (!tarakany[number - 1].Trenirovka())
+            tarakany.RemoveAt(number - 1);
+    }
 
+    public void Gonka()
+    {
+        if (tarakany.Count < 2)
+        {
+            Console.WriteLine("Для гонки нужно минимум 2 таракана!");
+            return;
+        }
 
-//4
+        Pokazat();
 
+        Console.Write("Введите номер таракана, на которого ставите: ");
+        int number = int.Parse(Console.ReadLine());
 
+        if (number < 1 || number > tarakany.Count)
+        {
+            Console.WriteLine("Неверный номер!");
+            return;
+        }
 
-//class Program
-//{
-//    static bool CheckPassword(string password)
-//    {
-//        if (password.Length < 6 || password.Length > 12)
-//            return false;
+        Console.Write("Введите размер ставки: ");
+        Stavka = int.Parse(Console.ReadLine());
 
-//        bool lower = password.Any(char.IsLower);
-//        bool upper = password.Any(char.IsUpper);
-//        bool digit = password.Any(char.IsDigit);
-//        bool special = password.Any(c => !char.IsLetterOrDigit(c));
+        if (Stavka <= 0 || Stavka > Schet)
+        {
+            Console.WriteLine("Неверная ставка!");
+            return;
+        }
 
-//        return lower && upper && digit && special;
-//    }
+        int winner = 0;
+        int maxSpeed = -1;
 
-//    static void Main()
-//    {
-//        Console.Write("Введите пароль: ");
-//        string password = Console.ReadLine();
+        Console.WriteLine("\nРезультаты гонки:");
 
-//        Console.WriteLine(CheckPassword(password));
-//    }
-//}
+        for (int i = 0; i < tarakany.Count; i++)
+        {
+            int speed = tarakany[i].Dvizhenie();
 
+            Console.WriteLine(
+                tarakany[i].Name + ": скорость " + speed);
 
+            if (speed > maxSpeed)
+            {
+                maxSpeed = speed;
+                winner = i;
+            }
+        }
 
+        Console.WriteLine("Победитель: " + tarakany[winner].Name);
+
+        if (number - 1 == winner)
+        {
+            Schet += Stavka * tarakany.Count;
+            Console.WriteLine("Вы выиграли!");
+        }
+        else
+        {
+            Schet -= Stavka;
+            Console.WriteLine("Вы проиграли!");
+        }
+    }
+
+    public void PokazatSchet()
+    {
+        Console.WriteLine("Ваш счёт: " + Schet + " рублей");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Totalizator totalizator = new Totalizator();
+
+        while (true)
+        {
+            Console.WriteLine("\nМеню:");
+            Console.WriteLine("1. Добавить таракана");
+            Console.WriteLine("2. Удалить таракана");
+            Console.WriteLine("3. Показать всех тараканов");
+            Console.WriteLine("4. Потренировать таракана");
+            Console.WriteLine("5. Сделать ставку и запустить гонку");
+            Console.WriteLine("6. Посмотреть состояние счёта");
+            Console.WriteLine("7. Выход");
+            Console.Write("Выберите действие: ");
+
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    totalizator.Dobavit();
+                    break;
+                case 2:
+                    totalizator.Udalit();
+                    break;
+                case 3:
+                    totalizator.Pokazat();
+                    break;
+                case 4:
+                    totalizator.Trenirovat();
+                    break;
+                case 5:
+                    totalizator.Gonka();
+                    break;
+                case 6:
+                    totalizator.PokazatSchet();
+                    break;
+                case 7:
+                    return;
+                default:
+                    Console.WriteLine("Неверный пункт меню!");
+                    break;
+            }
+        }
+    }
+}
